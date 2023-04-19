@@ -7,11 +7,11 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.7.RELEASE</version>
+        <version>3.0.5</version>
     </parent>
 
-    <groupId>com.tesco.web.test</groupId>
-    <artifactId>tesco-web-test</artifactId>
+    <groupId>com.fruitapi</groupId>
+    <artifactId>fruitapi</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -47,6 +47,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>3.0.5</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -57,5 +65,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
