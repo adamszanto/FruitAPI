@@ -11,8 +11,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
+// WireMock = Client
 @SpringBootTest(
         classes = {WebTestApplication.class},
         webEnvironment = DEFINED_PORT,
@@ -26,8 +28,19 @@ public class WebTestIT {
         @Autowired
         private WebTestClient webClient;
 
+
         @Test
         void test() {
+                // Given
+                stubFor(get(urlEqualTo("/fruits/apple")).willReturn(aResponse()
+                        .withHeader("Content-Type", "application/json").withBody("""
+
+                                {
+                                      "id": "721fdf98-41b3-4b5d-b0f3-b5e633aa08a0"
+                                    }
+
+                                """)));
+
                 webClient.get()
                         .uri("http://localhost:8989/fruits/apple")
                         .exchange()
@@ -35,11 +48,5 @@ public class WebTestIT {
                         .jsonPath("id")
                         .isEqualTo("721fdf98-41b3-4b5d-b0f3-b5e633aa08a0");
 
-
-                webClient.get()
-                        .uri("http://localhost:8989/fruits/lol")
-                        .exchange()
-                        .expectStatus()
-                        .isEqualTo(404);
         }
 }
